@@ -17,8 +17,6 @@ pip install flask bitcoinlib
 ## Running it locally
 Once you have your dependencies set up, cloning the repo and starting the local site takes about 20 seconds.
 
-![running](https://github.com/Funisher-code/audit-P2SH-multisig/blob/main/images/startup_small.gif)
-
 ```bash
 git clone https://github.com/Funisher-code/audit-P2SH-multisig/
 cd audit-P2SH-multisig
@@ -26,6 +24,8 @@ python index.py
 ```
 
 Your app should be accessible on [localhost:5000](http://localhost:5000/).
+
+![running](https://github.com/Funisher-code/audit-P2SH-multisig/blob/main/images/startup_small.gif)
 
 ----
 
