@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1>{{ app_data['description'] }}</h1>
+
+    <p class="lead">This proof of concept was created as part of an assignment in the CAS in Blockchain at the University of Zurich in 2020.</p>
+    <p class="lead"> for more information about the programme visit:<br> <a href="https://www.ifi.uzh.ch/de/studies/cas/blockchain.html" target="_blank" >https://www.ifi.uzh.ch/de/studies/cas/blockchain.html</a></p>
+
+    <div> {{ app_data['author'] }}, 2020</div>
+{% endblock %}

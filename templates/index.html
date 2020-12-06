@@ -1,0 +1,111 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1 class="display-5">Audit P2SH Multisig Transaction</h1>
+
+<!--{% if app_data['isClean'] %}-->
+<div class="jumbotron">
+    <h3 class="display-6">Step 1 – Specify Multisig Transaction to Audit</h3>
+	
+	<form method="post">
+	  <div class="form-group">
+		<label for="inputTxid"><b>Enter Transaction ID:</b></label>
+		<input type="text" class="form-control" name="inputTxid" placeholder={{app_trxdata['txid']}}>
+		<small name="txIdHelp" class="form-text text-muted">If you do not know the transaction id, go look for it here: <a href="https://blockchair.com/bitcoin" target="_blank">blockchair.com</a>
+	  </div>
+
+
+    <h3 class="display-6">Step 2 (optional) – Specify xPubs to identify Co-Signers</h3>
+
+	<div class="input-group">
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">Name</span>
+	  	</div>
+	  	<input type="text" class="col-xs-2" name="inputxPub1Name" placeholder="Alice"/>
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">xPub</span>
+	  	</div>
+	    <input type="text" class="form-control" name="inputxPub1" placeholder="xpub6C6zf7CdTFLytc4w19mUtHJTi4mmLATURy121inez7NUHRAS1saJHzGSVvxdBTjd1PCrrSa3KjjdRQVizYKe91wXnamVjXsuMiyqhfF3biX "/>
+	</div>
+
+	<div class="input-group">
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">Name</span>
+	  	</div>
+	  	<input type="text" class="col-xs-2" name="inputxPub2Name" placeholder="Bob"/>
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">xPub</span>
+	  	</div>
+	    <input type="text" class="form-control" name="inputxPub2" placeholder="xpub661MyMwAqRbcGria65AKEGqb2Y4YMVE1J9doz11nw1vfc1LwFmcQG8iWQLqUQZqYW6UyvaBCVw6V7A3hbEu4zZmwnQfxbBaG2N9hv1KV8tU"/>
+	</div>
+
+	<div class="input-group">
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">Name</span>
+	  	</div>
+	  	<input type="text" class="col-xs-2" name="inputxPub3Name" placeholder="Charlie"/>
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">xPub</span>
+	  	</div>
+	    <input type="text" class="form-control" name="inputxPub3" placeholder="xpub6CMwCD373cAHruFSP6DNM1AJ5V6w8EBz8qQaFvWxaJDNrWyu6TdqbFNFpGUDPCm9cYtvwMiwbR3ps785Uh2nTrx5q9xpCkscfJeJZLMBFdn"/>
+	</div>
+
+	<div class="input-group">
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">Name</span>
+	  	</div>
+	  	<input type="text" class="col-xs-2" name="inputxPub4Name" placeholder="Dan"/>
+		<div class="input-group-prepend">
+	    	<span class="input-group-text">xPub</span>
+	  	</div>
+	    <input type="text" class="form-control" name="inputxPub4" placeholder="xpub661MyMwAqRbcGs5Qzdo7wa3bQBT8bdva8YLhzwQBRyGt3DVRcjzCiDwQSpoPavqep64aG4UdZbW1AUd4hFCpENZeVBejS2jzAbpzKGto8YT"/>
+	</div>		
+    <p></p>
+	  <button type="submit" class="btn btn-primary btn-block btn-lg" name="buttonbelow" value="audit">AUDIT</button>
+	  Simply hit "AUDIT" for a quick try with standard input.
+</div>
+
+<!--{% endif %}-->
+
+{% if not app_data['isClean'] and app_data['trxFound'] %}
+<div class="jumbotron">
+	<p class="lead">Audit for Transaction 
+	<a href="https://blockchair.com/bitcoin/transaction/{{app_trxdata['txid']}}" target="_blank">{{app_trxdata['txid']}}</a>
+	</p>
+	<p>
+		<b>Transaction Inputs</b>
+		{% for element in app_trxdata['inputs'] %}
+			<br>{{element}}
+		{% endfor %}
+	</p>
+	
+	<p>
+		<b>Transaction Outputs</b>
+		{% for element in app_trxdata['outputs'] %}
+			<br>{{element}}
+		{% endfor %}
+	</p>
+	<h5>Signatures of the co-signers (name: address – public key)</h5>
+		{% if app_data['trxP2SH']%}
+			{% for element in app_trxdata['cosigners'] %}
+				<h6><font color=red><p class="text-monospace">{{element[0]}}: {{element[1]}} - {{element[2]}}</p></font></h6>
+			{% endfor %}
+		{% else %}
+			<h6><font color=red><p class="text-monospace">NO P2SH MULTISIG INPUT SPENT IN THIS TRANSACTION!</p></font></h6>
+		{% endif %}
+
+	<form method="post">
+	  <button type="submit" class="btn btn-primary btn-block btn-lg" name="buttonbelow" value="tryagain">TRY ANOTHER ONE</button>
+	</form>
+
+
+{% endif %}
+</div>
+{% if not app_data['trxFound'] %}
+	<h4>Transaction not found!</h4>
+	<form method="post">
+	  <button type="submit" class="btn btn-primary btn-block btn-lg" name="buttonbelow" value="notfoundtryagain">TRY AGAIN</button>
+	</form>
+{% endif %}
+
+{% endblock %}
