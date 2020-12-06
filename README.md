@@ -1,7 +1,7 @@
 # Audit P2SH Multisig Transaction
 
 This webpage was created as part of an assignment in the CAS in Blockchain at the University of Zurich in 2020.
-The purpose is to provide auditability for P2SH mutlisig transaction.
+Its purpose is to provide auditability for P2SH mutlisig transactions.
 
 It determines the co-signers for any given P2SH multisig transaction hash.
 By providing xPubs one can additionally put a name tag on the co-signers.
@@ -30,11 +30,9 @@ Your app should be accessible on [localhost:5000](http://localhost:5000/).
 
 ### Installation issues on Windows
 
-If you want to run it on a Windows system you might get an error when trying to install the bitcoinlib dependency scrypt.
+If you want to run it on a Windows system you might get an error when trying to install the bitcoinlib dependency ```scrypt```.
 
 #### Solution: 
 
 - install Visual C++ 14.0
 - install OpenSSL and place it in the following folder: ```C:\OpenSSL-Win64```
-
-
